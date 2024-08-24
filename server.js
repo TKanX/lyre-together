@@ -17,6 +17,10 @@ const server = http.createServer(app);
 // Create the socket.io server
 const io = new Server(server);
 
+// Set the socket.io server
+const socket = require("./socket");
+socket(io);
+
 // Serve the static files
 app.use(express.static(path.join(__dirname, "public")));
 
