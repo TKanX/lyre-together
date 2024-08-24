@@ -17,8 +17,26 @@
 <body onload='choice()'>
     <div id="loadDiv" class="loadDiv">正在加载...</div>
     <div class="toolbar">
+        <div class="music" onclick="showTextarea('room')"><span class="musicClef music-color">&#128423;</span></div>
         <div class="music" onclick="showTextarea('transpose')"><span class="musicClef music-color">&#8645;</span></div>
         <div class="music" onclick="showTextarea('input')"><span class="musicClef music-color">&#9655;</span></div>
+    </div>
+    <div class="input" id="room">
+        <span class="window-title">房间</span>
+        <span class="closeMusic" onclick="showTextarea('room')">&#11020;</span>
+        <hr class="line0-1" />
+        <span class="content">
+            <span class=" settingsField">
+                <div class="settingsText">加入房间：</div>
+                <input class="bpm" id="room-num" type="text" placeholder="请输入房间号">
+                <button class="start" onclick="joinRoom()">加入</button>
+            </span>
+            <br>
+            <span class=" settingsField">
+                <div class="settingsText">创建房间：</div>
+                <button class="start" onclick="createRoom()">创建</button>
+            </span>
+        </span>
     </div>
     <div class="input" id="input">
         <span class="bpmText">
