@@ -44,11 +44,11 @@ let transpose = 0;
 var audioMap = new Map();
 let fallback = false;
 
-// 创建AudioContext
+// Create audio context
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
 let aCtx = new AudioContext();
 
-// 创建音频处理流程
+// Create audio nodes
 
 /* 
    ┌──────────────┐        ┌──────────────┐
@@ -82,7 +82,7 @@ volume.connect(compressor);
 compressor.connect(masterVolume);
 masterVolume.connect(aCtx.destination);
 
-// 播放声音
+// Play sound
 function playSound(buffer, detune = 0) {
   if (fallback) {
     buffer.volume = 0.5;
@@ -97,7 +97,7 @@ function playSound(buffer, detune = 0) {
   }
 }
 
-// 加载音频
+// Load audio
 function loadAudio(id = "windsong_lyre") {
   let loaded = 0;
   onLoad(id);
@@ -117,7 +117,7 @@ function loadAudio(id = "windsong_lyre") {
       }
     };
 
-    // 检测到错误，进入fallback模式
+    // Default to fallback if XHR fails
     xhr.onerror = function () {
       fallback = true;
       console.warn("XHR failed. Using fallback implementation.");
@@ -133,7 +133,7 @@ function loadAudio(id = "windsong_lyre") {
   }
 }
 
-// 音符根据调式进行偏移
+// Get transpose
 function getTranspose(note) {
   let noteId = note[0];
   if (noteId in modeMap[mode]) {
@@ -150,7 +150,7 @@ let bpm = 60;
 let delay = [4000, 2000, 1000, 500, 250, 125, 62.5, 31.25]; // 60BPM
 let newDelay = []; // ???BPM
 
-// 键盘事件
+// Keyboard events
 document.onkeydown = (e) => {
   let note = keyMap[e.key];
   if (!notes[note] && show != -1) {
@@ -164,7 +164,7 @@ document.onkeyup = (e) => {
   }
 };
 
-// 根据按键播放声音
+// Play note according to key
 function play(key, autoRelease = true) {
   let note = keyMap[key];
   if (note != null) {
@@ -182,7 +182,7 @@ function play(key, autoRelease = true) {
   }
 }
 
-// 松开按键
+// Release note
 function release(key) {
   let note = keyMap[key];
   if (note != null) {
@@ -191,7 +191,7 @@ function release(key) {
   }
 }
 
-// 播放乐谱
+// Play sheet music
 function playSheet(string, i = 0) {
   let delayTime = newDelay[3];
   let group = [];
@@ -222,6 +222,7 @@ function playSheet(string, i = 0) {
   }
 }
 
+// Get string letter
 function getStringLetter(string, i) {
   let stringLetter;
   switch (string[i]) {
@@ -259,7 +260,7 @@ function getNewDelayTime(string, i) {
   return [newDelayTime, i];
 }
 
-// 点击播放按钮后执行
+// Start, pause, and clear music
 function startMusic() {
   stopped = false;
   bpm = document.getElementById("bpm").value;
@@ -273,7 +274,7 @@ function startMusic() {
   }
 }
 
-// 更新BPM
+// Update BPM
 function updateBpm(bpm) {
   let multiplier = 60 / bpm;
   for (delayNum in delay) {
@@ -290,7 +291,7 @@ function clearMusic() {
   document.getElementById("textareaInput").value = "";
 }
 
-// 加载提示
+// Display the loading screen
 
 let loadDiv;
 let asyncLoad;

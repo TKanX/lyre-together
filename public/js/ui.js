@@ -1,7 +1,7 @@
 var show = true;
-var isMobile = "ontouchstart" in document.documentElement; // 检测是否为手机
+var isMobile = "ontouchstart" in document.documentElement; // If mobile device
 
-// 显示对话框
+// Display textarea
 function showTextarea(id) {
   let inputDiv = document.getElementById(id);
   if (show == false) {
@@ -15,7 +15,7 @@ function showTextarea(id) {
   }
 }
 
-// 为琴键添加事件
+// Add event listeners to play notes
 for (let node of document.querySelectorAll(".triangle")) {
   let key = node.querySelector(".key").id;
   if (isMobile) {
@@ -30,13 +30,13 @@ for (let node of document.querySelectorAll(".triangle")) {
   removeID(node.parentNode.childNodes[1]);
 }
 
-// BPM自动更新
+// Auto BPM update
 let bpmField = document.getElementById("bpm");
 bpmField.addEventListener("focusout", () => {
   updateBpm(bpmField.value);
 });
 
-// 转调自动更新
+// Switch to auto mode
 document.getElementById("transpose-num").addEventListener("change", (e) => {
   transpose = parseInt(e.target.value);
 });
@@ -51,7 +51,7 @@ function removeID(spread) {
   );
 }
 
-// 设置调式
+// Switch mode
 function selectMode(node) {
   mode = node.innerText;
   document.querySelector("#modeText").innerText = node.innerText;
