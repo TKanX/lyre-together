@@ -3,6 +3,9 @@
  * @module server
  */
 
+// Load the environment variables
+require("dotenv").config();
+
 // Load the server modules
 const express = require("express");
 const http = require("http");
