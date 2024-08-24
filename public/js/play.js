@@ -165,9 +165,9 @@ document.onkeyup = (e) => {
 };
 
 // Play note according to key
-function play(key, autoRelease = true) {
+function play(key, autoRelease = true, fromServer = false) {
   // Send play note event to server
-  if (room) {
+  if (room && !fromServer) {
     sendPlay(key, autoRelease);
   }
 
@@ -188,9 +188,9 @@ function play(key, autoRelease = true) {
 }
 
 // Release note
-function release(key) {
+function release(key, fromServer = false) {
   // Send release note event to server
-  if (room) {
+  if (room && !fromServer) {
     sendRelease(key);
   }
 

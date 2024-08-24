@@ -12,12 +12,12 @@ function socket(io) {
 
       // Play note
       socket.on("playNote", (note, autoRelease = false) => {
-        io.to(room).emit("playNote", note, autoRelease);
+        socket.to(room).emit("playNote", note, autoRelease);
       });
 
       // Release note
       socket.on("releaseNote", (note) => {
-        io.to(room).emit("releaseNote", note);
+        socket.to(room).emit("releaseNote", note);
       });
     });
   });

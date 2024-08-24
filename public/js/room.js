@@ -24,12 +24,12 @@ if (room) {
 
   // Listen for play note event
   socket.on("playNote", (note, autoRelease = false) => {
-    play(note, autoRelease);
+    play(note, autoRelease, true);
   });
 
   // Listen for release note event
   socket.on("releaseNote", (note) => {
-    release(note);
+    release(note, true);
   });
 }
 
