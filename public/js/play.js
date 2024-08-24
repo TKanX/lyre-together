@@ -166,6 +166,11 @@ document.onkeyup = (e) => {
 
 // Play note according to key
 function play(key, autoRelease = true) {
+  // Send play note event to server
+  if (room) {
+    sendPlay(key, autoRelease);
+  }
+
   let note = keyMap[key];
   if (note != null) {
     notes[note] = true;
@@ -184,6 +189,11 @@ function play(key, autoRelease = true) {
 
 // Release note
 function release(key) {
+  // Send release note event to server
+  if (room) {
+    sendRelease(key);
+  }
+
   let note = keyMap[key];
   if (note != null) {
     notes[note] = false;

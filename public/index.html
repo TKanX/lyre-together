@@ -11,7 +11,6 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"
         charset="utf-8">
-    <link rel="manifest" href="manifest.json">
 </head>
 
 <body onload='choice()'>
@@ -28,7 +27,7 @@
         <span class="content">
             <span class=" settingsField">
                 <div class="settingsText">加入房间：</div>
-                <input class="bpm" id="room-num" type="text" placeholder="请输入房间号">
+                <input class="bpm" id="room-id" type="text" placeholder="请输入房间号">
                 <button class="start" onclick="joinRoom()">加入</button>
             </span>
             <br>
@@ -365,6 +364,8 @@
     </div>
     <input type="range" min="0" max="100" value="100" id="volume">
     <script src="instruments/manifest.js"></script>
+    <script src="socket.io/socket.io.min.js"></script>
+    <script src="js/room.js"></script>
     <script src="js/play.js"></script>
     <script src="js/switch.js"></script>
     <script src="js/ui.js"></script>
