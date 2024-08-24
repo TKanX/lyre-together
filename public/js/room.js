@@ -31,6 +31,11 @@ if (room) {
   socket.on("releaseNote", (note) => {
     release(note, true);
   });
+
+  // Listen for switch instrument event
+  socket.on("switchInstrument", (instrument) => {
+    choice(instrument, true);
+  });
 }
 
 // Send play note event
@@ -41,4 +46,9 @@ function sendPlay(note, autoRelease = false) {
 // Send release note event
 function sendRelease(note) {
   socket.emit("releaseNote", note);
+}
+
+// Send switch instrument event
+function sendSwitchInstrument(instrument) {
+  socket.emit("switchInstrument", instrument);
 }

@@ -19,6 +19,11 @@ function socket(io) {
       socket.on("releaseNote", (note) => {
         socket.to(room).emit("releaseNote", note);
       });
+
+      // Switch instrument
+      socket.on("switchInstrument", (instrument) => {
+        socket.to(room).emit("switchInstrument", instrument);
+      });
     });
   });
 }
