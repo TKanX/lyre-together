@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Genshin Impact Lyre Online Multiplayer - Music Simulator</title>
+    <meta name="description" content="An online multiplayer Genshin Impact lyre simulator with various instrument sounds. Play together with friends in real-time by creating and joining rooms.">
+    <meta name="keywords" content="Genshin Impact, lyre, music, simulator, multiplayer, online, play, instrument sounds, room, create, invite, friends">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="css/animations.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/toolbar.css">
+    <link rel="stylesheet" type="text/css" id="async" href="" loaded="0">
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+</head>
+
+<body onload='choice()'>
+    <div id="loadDiv" class="loadDiv">Loading...</div>
+    <div class="landscape">Please use landscape mode</div>
+    <div class="toolbar">
+        <div class="music" onclick="showTextarea('room')"><span class="musicClef music-color">&#128423;</span></div>
+        <div class="music" onclick="showTextarea('transpose')"><span class="musicClef music-color">&#8645;</span></div>
+        <div class="music" onclick="showTextarea('input')"><span class="musicClef music-color">&#9655;</span></div>
+    </div>
+    <div class="input" id="room">
+        <span class="window-title">Room</span>
+        <span class="closeMusic" onclick="showTextarea('room')">&#11020;</span>
+        <hr class="line0-1" />
+        <span class="content">
+            <span class="settingsField">
+                <div class="settingsText">Join Room:</div>
+                <input class="bpm" id="room-id" type="text" placeholder="Enter room number">
+                <button class="start" onclick="joinRoom()">Join</button>
+            </span>
+            <br>
+            <span class="settingsField">
+                <div class="settingsText">Create Room:</div>
+                <button class="start" onclick="createRoom()">Create</button>
+            </span>
+        </span>
+    </div>
+    <div class="input" id="input">
+        <span class="bpmText">
+            <div class="settingsText">BPM:</div>
+        </span>
+        <input class="bpm" id="bpm" type="number" value="60" maxlength="4" placeholder="Enter BPM">
+        <span class="closeMusic" onclick="showTextarea('input')">&#11020;</span>
+        <hr class="line0-1" />
+        <textarea class="textareaInput" id="textareaInput" placeholder="Enter melody"
+            spellcheck="false"></textarea>
+        <hr class="line0-2" />
+        <div class="buttonGroup">
+            <button class="start" onclick="startMusic()">Start</button>
+            <button class="pause" onclick="pauseMusic()">Pause</button>
+            <button class="clear" onclick="clearMusic()">Clear</button>
+        </div>
+    </div>
+    <div class="input" id="transpose">
+        <span class="window-title">Transpose</span>
+        <span class="closeMusic" onclick="showTextarea('transpose')">&#11020;</span>
+        <hr class="line0-1" />
+        <span class="content">
+            <span class="settingsField">
+                <div class="settingsText">Mode:</div>
+                <div class="combo-box modeSelection">
+                    <span id="modeText">Mode</span>
+                    <div class="combo-items">
+                        <p onclick="selectMode(this);">Ionian</p>
+                        <p onclick="selectMode(this);">Dorian</p>
+                        <p onclick="selectMode(this);">Phrygian</p>
+                        <p onclick="selectMode(this);">Lydian</p>
+                        <p onclick="selectMode(this);">Mixolydian</p>
+                        <p onclick="selectMode(this);">Aeolian</p>
+                        <p onclick="selectMode(this);">Locrian</p>
+                    </div>
+                </div>
+            </span>
+            <br>
+            <span class="settingsField">
+                <div class="settingsText">Pitch:</div>
+                <input class="bpm" id="transpose-num" type="number" value="0" maxlength="2" max="12" min="-12"
+                    placeholder="Enter semitone">
+            </span>
+        </span>
+    </div>
+    <div class="location">
+        <table id="keyboard">
+            <tr>
+                <td>
+                    <span class="clef0">&#119070;</span>
+                    <hr class="line1-1" />
+                    <hr class="line1-2" />
+                    <hr class="line1-3" />
+                    <hr class="line1-4" />
+                    <hr class="line1-5" />
+                </td>
+                <td class="triangle">
+                    <div class="IDspread"></div>
+                    <div class="triangleTop"></div>
+                    <button class="key" id="q">
+                        <span class="note2 music-color">&#119062;</span>
+                        <span class="note4 music-color">&#119133;</span>
+                        <span class="text">do</span>
+                    </button>
+                    <div class="triangleBottom"></div>
+                </td>
+                <td class="triangle">
+                    <div class="IDspread"></div>
+                    <div class="triangleTop"></div>
+                    <button class="key" id="w">
+                        <span class="note3 music-color">&#119062;</span>
+                        <span class="note4 music-color">&#119133;</span>
+                        <span class="text">re</span>
+                    </button>
+                    <div class="triangleBottom"></div>
+                </td>
+                <td class="triangle">
+                    <div class="IDspread"></div>
+                    <div class="triangleTop"></div>
+                    <button class="key" id="e">
+                        <span class="note2 music-color">&#119062;</span>
+                        <span class="note3 music-color">&#119062;</span>
+                        <span class="note4 music-color">&#119133;</span>
+                        <span class="text">mi</span>
+                    </button>
+                    <div class="triangleBottom"></div>
+                </td>
+                <td class="triangle">
+                    <div class="IDspread"></div>
+                    <div class="triangleTop"></div>
+                    <button class="key" id="r">
+                        <span class="note1 music-color">&#119062;</span>
+                        <span class="note3 music-color">&#119062;</span>
+                        <span class="note4 music-color">&#119133;</span>
+                        <span class="text">fa</span>
+                    </button>
+                    <div class="triangleBottom"></div>
+                </td>
+                <td class="triangle">
+                    <div class="IDspread"></div>
+                    <div class="triangleTop"></div>
+                    <button class="key" id="t">
+                        <span class="note1 music-color">&#119062;</span>
+                        <span class="note2 music-color">&#119062;</span>
+                        <span class="note3 music-color">&#119062;</span>
+                        <span class="note4 music-color">&#119133;</span>
+                        <span class="text">so</span>
+                    </button>
+                    <div class="triangleBottom"></div>
+                </td>
+                <td class="triangle">
+                    <div class="IDspread"></div>
+                    <div class="triangleTop"></div>
+                    <button class="key" id="y">
+                        <span class="note5 music-color">&#119062;</span>
+                        <span class="note7 music-color">&#119062;</span>
+                        <span class="note8 music-color">&#119062;</span>
+                        <span class="note9 music-color">&#119133;</span>
+                        <span class="text">la</span>
+                    </button>
+                    <div class="triangleBottom"></div>
+                </td>
+                <td class="triangle">
+                    <div class="IDspread"></div>
+                    <div class="triangleTop"></div>
+                    <button class="key" id="u">
+                        <span class="note5 music-color">&#119062;</span>
+                        <span class="note6 music-color">&#119062;</span>
+                        <span class="note7 music-color">&#119062;</span>
+                        <span class="note8 music-color">&#119062;</span>
+                        <span class="note9 music-color">&#119133;</span>
+                        <span class="text">ti</span>
+                    </button>
+                    <div class="triangleBottom"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="clef">&#119073;</span>
+                    <hr class="line2-1" />
+                    <hr class="line2-2" />
+                    <hr class="line2-3" />
+                    <hr class="line2-4" />
+                    <hr class="line2-5" />
+                </td>
+                <td class="triangle">
+                    <div class="IDspread"></div>
+                    <div class="triangleTop"></div>
+                    <button class="key" id="a">
+                        <span class="note2 music-color">&#119062;</span>
+                        <span class="note4 music-color">&#119133;</span>
+                        <span class="text">do</span>
+                    </button>
+                    <div class="triangleBottom"></div>
+                </td>
+                <td class="triangle">
+                    <div class="IDspread"></div>
+                    <div class="triangleTop"></div>
+                    <button class="key" id="s">
+                        <span class="note3 music-color">&#119062;</span>
+                        <span class="note4 music-color">&#119133;</span>
+                        <span class="text">re</span>
+                    </button>
+                    <div class="triangleBottom"></div>
+                </td>
+                <td class="triangle">
+                    <div class="IDspread"></div>
+                    <div class="triangleTop"></div>
+                    <button class="key" id="d">
+                        <span class="note2 music-color">&#119062;</span>
+                        <span class="note3 music-color">&#119062;</span>
+                        <span class="note4 music-color">&#119133;</span>
+                        <span class="text">mi</span>
+                    </button>
+                    <div class="triangleBottom"></div>
+                </td>
+                <td class="triangle">
+                    <div class="IDspread"></div>
+                    <div class="triangleTop"></div>
+                    <button class="key" id="f">
+                        <span class="note1 music-color">&#119062;</span>
+                        <span class="note3 music-color">&#119062;</span>
+                        <span class="note4 music-color">&#119133;</span>
+                        <span class="text">fa</span>
+                    </button>
+                    <div class="triangleBottom"></div>
+                </td>
+                <td class="triangle">
+                    <div class="IDspread"></div>
+                    <div class="triangleTop"></div>
+                    <button class="key" id="g">
+                        <span class="note1 music-color">&#119062;</span>
+                        <span class="note2 music-color">&#119062;</span>
+                        <span class="note3 music-color">&#119062;</span>
+                        <span class="note4 music-color">&#119133;</span>
+                        <span class="text">so</span>
+                    </button>
+                    <div class="triangleBottom"></div>
+                </td>
+                <td class="triangle">
+                    <div class="IDspread"></div>
+                    <div class="triangleTop"></div>
+                    <button class="key" id="h">
+                        <span class="note5 music-color">&#119062;</span>
+                        <span class="note7 music-color">&#119062;</span>
+                        <span class="note8 music-color">&#119062;</span>
+                        <span class="note9 music-color">&#119133;</span>
+                        <span class="text">la</span>
+                    </button>
+                    <div class="triangleBottom"></div>
+                </td>
+                <td class="triangle">
+                    <div class="IDspread"></div>
+                    <div class="triangleTop"></div>
+                    <button class="key" id="j">
+                        <span class="note5 music-color">&#119062;</span>
+                        <span class="note6 music-color">&#119062;</span>
+                        <span class="note7 music-color">&#119062;</span>
+                        <span class="note8 music-color">&#119062;</span>
+                        <span class="note9 music-color">&#119133;</span>
+                        <span class="text">ti</span>
+                    </button>
+                    <div class="triangleBottom"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="clef">&#119074;</span>
+                    <hr class="line3-1" />
+                    <hr class="line3-2" />
+                    <hr class="line3-3" />
+                    <hr class="line3-4" />
+                    <hr class="line3-5" />
+                </td>
+                <td class="triangle">
+                    <div class="IDspread"></div>
+                    <div class="triangleTop"></div>
+                    <button class="key" id="z">
+                        <span class="note2 music-color">&#119062;</span>
+                        <span class="note4 music-color">&#119133;</span>
+                        <span class="text">do</span>
+                    </button>
+                    <div class="triangleBottom"></div>
+                </td>
+                <td class="triangle">
+                    <div class="IDspread"></div>
+                    <div class="triangleTop"></div>
+                    <button class="key" id="x">
+                        <span class="note3 music-color">&#119062;</span>
+                        <span class="note4 music-color">&#119133;</span>
+                        <span class="text">re</span>
+                    </button>
+                    <div class="triangleBottom"></div>
+                </td>
+                <td class="triangle">
+                    <div class="IDspread"></div>
+                    <div class="triangleTop"></div>
+                    <button class="key" id="c">
+                        <span class="note2 music-color">&#119062;</span>
+                        <span class="note3 music-color">&#119062;</span>
+                        <span class="note4 music-color">&#119133;</span>
+                        <span class="text">mi</span>
+                    </button>
+                    <div class="triangleBottom"></div>
+                </td>
+                <td class="triangle">
+                    <div class="IDspread"></div>
+                    <div class="triangleTop"></div>
+                    <button class="key" id="v">
+                        <span class="note1 music-color">&#119062;</span>
+                        <span class="note3 music-color">&#119062;</span>
+                        <span class="note4 music-color">&#119133;</span>
+                        <span class="text">fa</span>
+                    </button>
+                    <div class="triangleBottom"></div>
+                </td>
+                <td class="triangle">
+                    <div class="IDspread"></div>
+                    <div class="triangleTop"></div>
+                    <button class="key" id="b">
+                        <span class="note1 music-color">&#119062;</span>
+                        <span class="note2 music-color">&#119062;</span>
+                        <span class="note3 music-color">&#119062;</span>
+                        <span class="note4 music-color">&#119133;</span>
+                        <span class="text">so</span>
+                    </button>
+                    <div class="triangleBottom"></div>
+                </td>
+                <td class="triangle">
+                    <div class="IDspread"></div>
+                    <div class="triangleTop"></div>
+                    <button class="key" id="n">
+                        <span class="note5 music-color">&#119062;</span>
+                        <span class="note7 music-color">&#119062;</span>
+                        <span class="note8 music-color">&#119062;</span>
+                        <span class="note9 music-color">&#119133;</span>
+                        <span class="text">la</span>
+                    </button>
+                    <div class="triangleBottom"></div>
+                </td>
+                <td class="triangle">
+                    <div class="IDspread"></div>
+                    <div class="triangleTop"></div>
+                    <button class="key" id="m">
+                        <span class="note5 music-color">&#119062;</span>
+                        <span class="note6 music-color">&#119062;</span>
+                        <span class="note7 music-color">&#119062;</span>
+                        <span class="note8 music-color">&#119062;</span>
+                        <span class="note9 music-color">&#119133;</span>
+                        <span class="text">ti</span>
+                    </button>
+                    <div class="triangleBottom"></div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="combo-box instrumentSelection">
+        <span id="instruments">Instruments</span>
+        <div class="combo-items">
+            <!-- Instruments -->
+            <p onclick="choice('windsong_lyre')">Windsong Lyre</p>
+            <p onclick="choice('floral_zither')">Floral Zither</p>
+            <p onclick="choice('floral_zither_old')">Floral Zither (Old Version)</p>
+            <p onclick="choice('vintage_lyre')">Vintage Lyre</p>
+        </div>
+    </div>
+    <input type="range" min="0" max="100" value="100" id="volume">
+    <script src="instruments/manifest.js"></script>
+    <script src="socket.io/socket.io.min.js"></script>
+    <script src="js/room.js"></script>
+    <script src="js/play.js"></script>
+    <script src="js/switch.js"></script>
+    <script src="js/ui.js"></script>
+</body>
+
+</html>

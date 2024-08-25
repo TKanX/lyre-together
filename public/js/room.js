@@ -9,12 +9,12 @@ const room = parsedUrl.pathname.split("/").pop();
 // Join room
 function joinRoom() {
   const roomId = document.getElementById("room-id").value;
-  window.location.href = `/${roomId}`;
+  window.location.href = `./${roomId}`;
 }
 
 // Create room
 function createRoom() {
-  window.location.href = "/create";
+  window.location.href = "./create";
 }
 
 // If the user is in a room

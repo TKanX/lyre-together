@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>원신 리라 온라인 멀티플레이어 - 음악 시뮬레이터</title>
+    <meta name="description" content="온라인 멀티플레이어 원신 리라 시뮬레이터로 다양한 악기 소리를 지원합니다. 실시간으로 친구와 함께 연주하고 방을 만들고 초대하여 함께 연주해보세요!">
+    <meta name="keywords" content="원신, 리라, 음악, 시뮬레이터, 멀티플레이어, 온라인, 연주, 악기 소리, 방, 만들기, 초대, 친구">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" type="text/css" href="css/animations.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/toolbar.css">
+    <link rel="stylesheet" type="text/css" id="async" href="" loaded="0">
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+</head>
+
+<body onload='choice()'>
+    <div id="loadDiv" class="loadDiv">로딩 중...</div>
+    <div class="landscape">가로 모드를 사용해 주세요</div>
+    <div class="toolbar">
+        <div class="music" onclick="showTextarea('room')"><span class="musicClef music-color">&#128423;</span></div>
+        <div class="music" onclick="showTextarea('transpose')"><span class="musicClef music-color">&#8645;</span></div>
+        <div class="music" onclick="showTextarea('input')"><span class="musicClef music-color">&#9655;</span></div>
+    </div>
+    <div class="input" id="room">
+        <span class="window-title">방</span>
+        <span class="closeMusic" onclick="showTextarea('room')">&#11020;</span>
+        <hr class="line0-1" />
+        <span class="content">
+            <span class="settingsField">
+                <div class="settingsText">방 참가:</div>
+                <input class="bpm" id="room-id" type="text" placeholder="방 번호를 입력하세요">
+                <button class="start" onclick="joinRoom()">참가하기</button>
+            </span>
+            <br>
+            <span class="settingsField">
+                <div class="settingsText">방 만들기:</div>
+                <button class="start" onclick="createRoom()">만들기</button>
+            </span>
+        </span>
+    </div>
+    <div class="input" id="input">
+        <span class="bpmText">
+            <div class="settingsText">BPM:</div>
+        </span>
+        <input class="bpm" id="bpm" type="number" value="60" maxlength="4" placeholder="BPM을 입력하세요">
+        <span class="closeMusic" onclick="showTextarea('input')">&#11020;</span>
+        <hr class="line0-1" />
+        <textarea class="textareaInput" id="textareaInput" placeholder="멜로디를 입력하세요"
+            spellcheck="false"></textarea>
+        <hr class="line0-2" />
+        <div class="buttonGroup">
+            <button class="start" onclick="startMusic()">시작</button>
+            <button class="pause" onclick="pauseMusic()">일시정지</button>
+            <button class="clear" onclick="clearMusic()">초기화</button>
+        </div>
+    </div>
+    <div class="input" id="transpose">
+        <span class="window-title">조율</span>
+        <span class="closeMusic" onclick="showTextarea('transpose')">&#11020;</span>
+        <hr class="line0-1" />
+        <span class="content">
+            <span class="settingsField">
+                <div class="settingsText">모드:</div>
+                <div class="combo-box modeSelection">
+                    <span id="modeText">모드</span>
+                    <div class="combo-items">
+                        <p onclick="selectMode(this);">이오니안</p>
+                        <p onclick="selectMode(this);">도리안</p>
+                        <p onclick="selectMode(this);">프리지안</p>
+                        <p onclick="selectMode(this);">리디안</p>
+                        <p onclick="selectMode(this);">믹솔리디안</p>
+                        <p onclick="selectMode(this);">아이올리안</p>
+                        <p onclick="selectMode(this);">로크리안</p>
+                    </div>
+                </div>
+            </span>
+            <br>
+            <span class="settingsField">
+                <div class="settingsText">피치:</div>
+                <input class="bpm" id="transpose-num" type="number" value="0" maxlength="2" max="12" min="-12"
+                    placeholder="반음을 입력하세요">
+            </span>
+        </span>
+    </div>
+    <div class="location">
+        <table id="keyboard">
+            <tr>
+                <td>
+                    <span class="clef0">&#119070;</span>
+                    <hr class="line1-1" />
+                    <hr class="line1-2" />
+                    <hr class="line1-3" />
+                    <hr class="line1-4" />
+                    <hr class="line1-5" />
+                </td>
+                <td class="triangle">
+                    <div class="IDspread"></div>
+                    <div class="triangleTop"></div>
+                    <button class="key" id="q">
+                        <span class="note2 music-color">&#119062;</span>
+                        <span class="note4 music-color">&#119133;</span>
+                        <span class="text">do</span>
+                    </button>
+                    <div class="triangleBottom"></div>
+                </td>
+                <td class="triangle">
+                    <div class="IDspread"></div>
+                    <div class="triangleTop"></div>
+                    <button class="key" id="w">
+                        <span class="note3 music-color">&#119062;</span>
+                        <span class="note4 music-color">&#119133;</span>
+                        <span class="text">re</span>
+                    </button>
+                    <div class="triangleBottom"></div>
+                </td>
+                <td class="triangle">
+                    <div class="IDspread"></div>
+                    <div class="triangleTop"></div>
+                    <button class="key" id="e">
+                        <span class="note2 music-color">&#119062;</span>
+                        <span class="note3 music-color">&#119062;</span>
+                        <span class="note4 music-color">&#119133;</span>
+                        <span class="text">mi</span>
+                    </button>
+                    <div class="triangleBottom"></div>
+                </td>
+                <td class="triangle">
+                    <div class="IDspread"></div>
+                    <div class="triangleTop"></div>
+                    <button class="key" id="r">
+                        <span class="note1 music-color">&#119062;</span>
+                        <span class="note3 music-color">&#119062;</span>
+                        <span class="note4 music-color">&#119133;</span>
+                        <span class="text">fa</span>
+                    </button>
+                    <div class="triangleBottom"></div>
+                </td>
+                <td class="triangle">
+                    <div class="IDspread"></div>
+                    <div class="triangleTop"></div>
+                    <button class="key" id="t">
+                        <span class="note1 music-color">&#119062;</span>
+                        <span class="note2 music-color">&#119062;</span>
+                        <span class="note3 music-color">&#119062;</span>
+                        <span class="note4 music-color">&#119133;</span>
+                        <span class="text">so</span>
+                    </button>
+                    <div class="triangleBottom"></div>
+                </td>
+                <td class="triangle">
+                    <div class="IDspread"></div>
+                    <div class="triangleTop"></div>
+                    <button class="key" id="y">
+                        <span class="note5 music-color">&#119062;</span>
+                        <span class="note7 music-color">&#119062;</span>
+                        <span class="note8 music-color">&#119062;</span>
+                        <span class="note9 music-color">&#119133;</span>
+                        <span class="text">la</span>
+                    </button>
+                    <div class="triangleBottom"></div>
+                </td>
+                <td class="triangle">
+                    <div class="IDspread"></div>
+                    <div class="triangleTop"></div>
+                    <button class="key" id="u">
+                        <span class="note5 music-color">&#119062;</span>
+                        <span class="note6 music-color">&#119062;</span>
+                        <span class="note7 music-color">&#119062;</span>
+                        <span class="note8 music-color">&#119062;</span>
+                        <span class="note9 music-color">&#119133;</span>
+                        <span class="text">ti</span>
+                    </button>
+                    <div class="triangleBottom"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="clef">&#119073;</span>
+                    <hr class="line2-1" />
+                    <hr class="line2-2" />
+                    <hr class="line2-3" />
+                    <hr class="line2-4" />
+                    <hr class="line2-5" />
+                </td>
+                <td class="triangle">
+                    <div class="IDspread"></div>
+                    <div class="triangleTop"></div>
+                    <button class="key" id="a">
+                        <span class="note2 music-color">&#119062;</span>
+                        <span class="note4 music-color">&#119133;</span>
+                        <span class="text">do</span>
+                    </button>
+                    <div class="triangleBottom"></div>
+                </td>
+                <td class="triangle">
+                    <div class="IDspread"></div>
+                    <div class="triangleTop"></div>
+                    <button class="key" id="s">
+                        <span class="note3 music-color">&#119062;</span>
+                        <span class="note4 music-color">&#119133;</span>
+                        <span class="text">re</span>
+                    </button>
+                    <div class="triangleBottom"></div>
+                </td>
+                <td class="triangle">
+                    <div class="IDspread"></div>
+                    <div class="triangleTop"></div>
+                    <button class="key" id="d">
+                        <span class="note2 music-color">&#119062;</span>
+                        <span class="note3 music-color">&#119062;</span>
+                        <span class="note4 music-color">&#119133;</span>
+                        <span class="text">mi</span>
+                    </button>
+                    <div class="triangleBottom"></div>
+                </td>
+                <td class="triangle">
+                    <div class="IDspread"></div>
+                    <div class="triangleTop"></div>
+                    <button class="key" id="f">
+                        <span class="note1 music-color">&#119062;</span>
+                        <span class="note3 music-color">&#119062;</span>
+                        <span class="note4 music-color">&#119133;</span>
+                        <span class="text">fa</span>
+                    </button>
+                    <div class="triangleBottom"></div>
+                </td>
+                <td class="triangle">
+                    <div class="IDspread"></div>
+                    <div class="triangleTop"></div>
+                    <button class="key" id="g">
+                        <span class="note1 music-color">&#119062;</span>
+                        <span class="note2 music-color">&#119062;</span>
+                        <span class="note3 music-color">&#119062;</span>
+                        <span class="note4 music-color">&#119133;</span>
+                        <span class="text">so</span>
+                    </button>
+                    <div class="triangleBottom"></div>
+                </td>
+                <td class="triangle">
+                    <div class="IDspread"></div>
+                    <div class="triangleTop"></div>
+                    <button class="key" id="h">
+                        <span class="note5 music-color">&#119062;</span>
+                        <span class="note7 music-color">&#119062;</span>
+                        <span class="note8 music-color">&#119062;</span>
+                        <span class="note9 music-color">&#119133;</span>
+                        <span class="text">la</span>
+                    </button>
+                    <div class="triangleBottom"></div>
+                </td>
+                <td class="triangle">
+                    <div class="IDspread"></div>
+                    <div class="triangleTop"></div>
+                    <button class="key" id="j">
+                        <span class="note5 music-color">&#119062;</span>
+                        <span class="note6 music-color">&#119062;</span>
+                        <span class="note7 music-color">&#119062;</span>
+                        <span class="note8 music-color">&#119062;</span>
+                        <span class="note9 music-color">&#119133;</span>
+                        <span class="text">ti</span>
+                    </button>
+                    <div class="triangleBottom"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <span class="clef">&#119074;</span>
+                    <hr class="line3-1" />
+                    <hr class="line3-2" />
+                    <hr class="line3-3" />
+                    <hr class="line3-4" />
+                    <hr class="line3-5" />
+                </td>
+                <td class="triangle">
+                    <div class="IDspread"></div>
+                    <div class="triangleTop"></div>
+                    <button class="key" id="z">
+                        <span class="note2 music-color">&#119062;</span>
+                        <span class="note4 music-color">&#119133;</span>
+                        <span class="text">do</span>
+                    </button>
+                    <div class="triangleBottom"></div>
+                </td>
+                <td class="triangle">
+                    <div class="IDspread"></div>
+                    <div class="triangleTop"></div>
+                    <button class="key" id="x">
+                        <span class="note3 music-color">&#119062;</span>
+                        <span class="note4 music-color">&#119133;</span>
+                        <span class="text">re</span>
+                    </button>
+                    <div class="triangleBottom"></div>
+                </td>
+                <td class="triangle">
+                    <div class="IDspread"></div>
+                    <div class="triangleTop"></div>
+                    <button class="key" id="c">
+                        <span class="note2 music-color">&#119062;</span>
+                        <span class="note3 music-color">&#119062;</span>
+                        <span class="note4 music-color">&#119133;</span>
+                        <span class="text">mi</span>
+                    </button>
+                    <div class="triangleBottom"></div>
+                </td>
+                <td class="triangle">
+                    <div class="IDspread"></div>
+                    <div class="triangleTop"></div>
+                    <button class="key" id="v">
+                        <span class="note1 music-color">&#119062;</span>
+                        <span class="note3 music-color">&#119062;</span>
+                        <span class="note4 music-color">&#119133;</span>
+                        <span class="text">fa</span>
+                    </button>
+                    <div class="triangleBottom"></div>
+                </td>
+                <td class="triangle">
+                    <div class="IDspread"></div>
+                    <div class="triangleTop"></div>
+                    <button class="key" id="b">
+                        <span class="note1 music-color">&#119062;</span>
+                        <span class="note2 music-color">&#119062;</span>
+                        <span class="note3 music-color">&#119062;</span>
+                        <span class="note4 music-color">&#119133;</span>
+                        <span class="text">so</span>
+                    </button>
+                    <div class="triangleBottom"></div>
+                </td>
+                <td class="triangle">
+                    <div class="IDspread"></div>
+                    <div class="triangleTop"></div>
+                    <button class="key" id="n">
+                        <span class="note5 music-color">&#119062;</span>
+                        <span class="note7 music-color">&#119062;</span>
+                        <span class="note8 music-color">&#119062;</span>
+                        <span class="note9 music-color">&#119133;</span>
+                        <span class="text">la</span>
+                    </button>
+                    <div class="triangleBottom"></div>
+                </td>
+                <td class="triangle">
+                    <div class="IDspread"></div>
+                    <div class="triangleTop"></div>
+                    <button class="key" id="m">
+                        <span class="note5 music-color">&#119062;</span>
+                        <span class="note6 music-color">&#119062;</span>
+                        <span class="note7 music-color">&#119062;</span>
+                        <span class="note8 music-color">&#119062;</span>
+                        <span class="note9 music-color">&#119133;</span>
+                        <span class="text">ti</span>
+                    </button>
+                    <div class="triangleBottom"></div>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="combo-box instrumentSelection">
+        <span id="instruments">악기</span>
+        <div class="combo-items">
+            <!-- Instruments -->
+            <p onclick="choice('windsong_lyre')">풍물의 리라</p>
+            <p onclick="choice('floral_zither')">꽃거울의 리라</p>
+            <p onclick="choice('floral_zither_old')">꽃거울의 리라 (구버전)</p>
+            <p onclick="choice('vintage_lyre')">빈티지 리라</p>
+        </div>
+    </div>
+    <input type="range" min="0" max="100" value="100" id="volume">
+    <script src="instruments/manifest.js"></script>
+    <script src="socket.io/socket.io.min.js"></script>
+    <script src="js/room.js"></script>
+    <script src="js/play.js"></script>
+    <script src="js/switch.js"></script>
+    <script src="js/ui.js"></script>
+</body>
+
+</html>
