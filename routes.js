@@ -40,7 +40,7 @@ router.get("/:lang/create", (req, res) => {
 
 // Join the room
 router.get("/:lang/:room", (req, res) => {
-  res.sendFile(`room-${req.params.lang}.html`, { root: "views" });
+  res.sendFile(`index-${req.params.lang}.html`, { root: "views" });
 });
 
 // Invalid Language/Path

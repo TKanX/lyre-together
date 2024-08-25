@@ -1,6 +1,12 @@
 // Init socket.io
 const socket = io();
 
+// Get current language
+const language =
+  document.documentElement.lang === "zh-cn"
+    ? "zh"
+    : document.documentElement.lang;
+
 // Get current url (room)
 const url = window.location.href;
 const parsedUrl = new URL(url);
@@ -9,12 +15,12 @@ const room = parsedUrl.pathname.split("/").pop();
 // Join room
 function joinRoom() {
   const roomId = document.getElementById("room-id").value;
-  window.location.href = `./${roomId}`;
+  window.location.href = `/${language}/${roomId}`;
 }
 
 // Create room
 function createRoom() {
-  window.location.href = "./create";
+  window.location.href = `/${language}/create`;
 }
 
 // If the user is in a room
