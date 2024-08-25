@@ -40,6 +40,16 @@ npm start
 
 Navigate to `http://localhost:3000` in your web browser.
 
+## Environment Variables
+
+The server uses environment variables to configure the WebSocket connection. You can set these variables in a `.env` file in the root directory of the project.
+
+- `PORT`: The port number for the server (default is 3000)
+- `HOST`: The host address for the server (default is localhost)
+- `USE_HTTPS`: Set to `true` to use HTTPS (default is `false`)
+- `SSL_KEY_PATH`: The path to the SSL key file (required if `USE_HTTPS` is `true`)
+- `SSL_CERT_PATH`: The path to the SSL certificate file (required if `USE_HTTPS` is `true`)
+
 ## Built With
 
 - [Node.js](https://nodejs.org/) - JavaScript runtime
