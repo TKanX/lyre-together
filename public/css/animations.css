@@ -1,11 +1,29 @@
 @keyframes animation1 {
-    0% {transform: scale(1.2);border: 0.3vw solid var(--animation-color); opacity: 0.8;}
-    100% {transform: scale(2);border: 0 solid var(--animation-color); opacity: 0.0;}
+    0% {
+        transform: scale(1.2);
+        border: 0.3vw solid var(--animation-color);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: scale(2);
+        border: 0 solid var(--animation-color);
+        opacity: 0.0;
+    }
 }
 
 @keyframes animation2 {
-    0% {transform: scale(1.2);border: 0.3vw solid var(--animation-color); opacity: 0.8;}
-    100% {transform: scale(2);border: 0 solid var(--animation-color); opacity: 0.0;}
+    0% {
+        transform: scale(1.2);
+        border: 0.3vw solid var(--animation-color);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: scale(2);
+        border: 0 solid var(--animation-color);
+        opacity: 0.0;
+    }
 }
 
 @keyframes fadeIn {
@@ -14,12 +32,13 @@
         visibility: hidden;
         transform: scale(0.95);
     }
+
     to {
         opacity: 1;
         visibility: visible;
         transform: scale(1);
     }
-  }
+}
 
 @keyframes fadeOut {
     0% {
@@ -27,7 +46,8 @@
         visibility: visible;
         transform: scale(1);
     }
-    100%{
+
+    100% {
         opacity: 0;
         visibility: hidden;
         transform: scale(0.95);
@@ -38,9 +58,11 @@
     0% {
         transform: scale(1);
     }
+
     20% {
         transform: scale(0.9);
     }
+
     100% {
         transform: scale(1);
     }

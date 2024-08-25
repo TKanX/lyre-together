@@ -1,21 +1,21 @@
 :root {
     --input-color: #ede5d8;
     --background-text1: #d3bc8e;
-    --background-text2: rgb(236,229,216);
+    --background-text2: rgb(236, 229, 216);
     --foreground-text: #3b4255;
     --dialog-background-color: #3e4556;
     --dialog-shadow-color1: rgb(60, 67, 83);
     --dialog-shadow-color2: rgb(57, 62, 82);
-    --selection-color: rgb(172,157,127);
+    --selection-color: rgb(172, 157, 127);
 }
 
-.content{
+.content {
     display: flex;
     flex-direction: column;
     margin: 0.6vw 0 0 2.5vw;
 }
 
-.toolbar{
+.toolbar {
     top: 2vw;
     right: 2vw;
     width: max-content;
@@ -38,7 +38,7 @@
     border-radius: 999px;
     background-color: var(--background-color);
     box-shadow: 0 0 0.1vw 0.4vw var(--box-shadow-color1),
-    0 0 0.1vw 0.6vw var(--box-shadow-color2);
+        0 0 0.1vw 0.6vw var(--box-shadow-color2);
     margin-left: 2vw;
 }
 
@@ -77,9 +77,9 @@
     background-color: var(--dialog-background-color);
     font-family: 'genshin impact', Fallback, sans-serif;
     box-shadow: 0 0 0 0.1vw rgb(75, 79, 89),
-    0 0 0.1vw 0.3vw var(--dialog-shadow-color1),
-    0 0 0.1vw 0.6vw var(--dialog-shadow-color2),
-    0 0 0 100vw rgba(0, 0, 0, 0.5);
+        0 0 0.1vw 0.3vw var(--dialog-shadow-color1),
+        0 0 0.1vw 0.6vw var(--dialog-shadow-color2),
+        0 0 0 100vw rgba(0, 0, 0, 0.5);
     visibility: hidden;
 }
 
@@ -102,36 +102,35 @@
     font-size: 1vw;
     padding: 0.6vw;
     margin: 0.8vw 2vw;
-    word-break:break-all;
+    word-break: break-all;
     color: var(--background-text2);
     background-color: rgb(53, 61, 79);
     outline: 0.15vw solid rgb(93, 93, 95);
     font-family: 'genshin impact', Fallback, sans-serif;
 }
 
-/*滚动条大小*/
 .textareaInput::-webkit-scrollbar {
     width: 0.5vw;
 }
-/*正常情况下角落和主干部分的样式*/
+
 .textareaInput::-webkit-scrollbar-corner,
 .textareaInput::-webkit-scrollbar-track {
     opacity: 0;
 }
-/*正常情况下滑块的样式*/
+
 .textareaInput::-webkit-scrollbar-thumb {
     border-radius: 0.5vw;
     background: rgba(0, 0, 0, 0.3);
 }
-/*鼠标悬浮在该类指向的控件上时滑块的样式*/
+
 .textareaInput:hover::-webkit-scrollbar-thumb {
     background: rgb(235, 229, 216);
 }
-/*鼠标悬浮在滑块上时滑块的样式*/
+
 .textareaInput::-webkit-scrollbar-thumb:hover {
     background: rgb(194, 195, 191);
 }
-/*鼠标悬浮在滚动条上的主干部分*/
+
 .textareaInput::-webkit-scrollbar-track:hover {
     border-radius: 0.5vw;
     background: rgba(0, 0, 0, 0.1);
@@ -165,7 +164,7 @@
     color: var(--background-text1);
 }
 
-.settingsField{
+.settingsField {
     display: flex;
     align-items: center;
     font-size: 1vw;
@@ -220,7 +219,7 @@
 .closeMusic {
     width: 2vw;
     height: 2vw;
-	float: right;
+    float: right;
     display: block;
     font-size: 2vw;
     font-weight: 900;
@@ -255,7 +254,9 @@
     justify-content: space-evenly;
 }
 
-.start, .pause, .clear {
+.start,
+.pause,
+.clear {
     border: 0;
     padding: 0;
     width: 10vw;
@@ -299,7 +300,9 @@
     background-color: rgb(205, 125, 116);
 }
 
-.start::before, .pause::before, .clear::before {
+.start::before,
+.pause::before,
+.clear::before {
     float: left;
     width: 1.4vw;
     height: 1.4vw;
@@ -311,8 +314,8 @@
 .start::before {
     content: '';
     box-shadow: 0 0 0 0.35vw rgb(49, 49, 49) inset,
-    0 0 0 0.45vw rgb(255, 203, 50) inset,
-    0 0 0 0.7vw rgb(49, 49, 49) inset;
+        0 0 0 0.45vw rgb(255, 203, 50) inset,
+        0 0 0 0.7vw rgb(49, 49, 49) inset;
 }
 
 .pause::before {
@@ -328,10 +331,11 @@
     color: rgb(205, 125, 116);
 }
 
-.line0-1, .line0-2 {
-	border: 0;
-	margin: 0.1vw 2vw;
-	box-shadow: 0 0 0 0.06vw rgb(81, 84, 93);
+.line0-1,
+.line0-2 {
+    border: 0;
+    margin: 0.1vw 2vw;
+    box-shadow: 0 0 0 0.06vw rgb(81, 84, 93);
 }
 
 .music-color {
@@ -348,7 +352,7 @@
     display: inline;
 }
 
-.combo-box {    
+.combo-box {
     padding: 5px 12px 5px 12px;
     border-radius: 999px;
     color: var(--foreground-text);
@@ -381,6 +385,6 @@
     background-color: #4f5870;
 }
 
-.settingsText{
+.settingsText {
     display: inline;
 }

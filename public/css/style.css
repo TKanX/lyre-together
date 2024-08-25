@@ -6,7 +6,7 @@
     --box-shadow-color1: rgb(212, 212, 196);
     --box-shadow-color2: rgb(223, 223, 198);
     --note-color: rgb(88, 153, 144);
-    
+
 }
 
 .key {
@@ -16,7 +16,7 @@
     border-radius: 999px;
     background-color: var(--background-color);
     box-shadow: 0 0 0.1vw 0.4vw var(--box-shadow-color1),
-    0 0 0.1vw 0.7vw var(--box-shadow-color2);
+        0 0 0.1vw 0.7vw var(--box-shadow-color2);
 }
 
 .text {
@@ -78,17 +78,27 @@
     box-shadow: 0 0 0.1vw 0.5vw var(--background-color-hover2);
 }
 
-.triangle:active .text, .key-press .text,
-.triangle:active .note1, .key-press .note1,
-.triangle:active .note2, .key-press .note2,
-.triangle:active .note3, .key-press .note3,
-.triangle:active .note4, .key-press .note4,
-.triangle:active .note5, .key-press .note5,
-.triangle:active .note6, .key-press .note6,
-.triangle:active .note7, .key-press .note7,
-.triangle:active .note8, .key-press .note8,
-.triangle:active .note9, .key-press .note9 {
-    color:rgba(255, 255, 255, 0.8);
+.triangle:active .text,
+.key-press .text,
+.triangle:active .note1,
+.key-press .note1,
+.triangle:active .note2,
+.key-press .note2,
+.triangle:active .note3,
+.key-press .note3,
+.triangle:active .note4,
+.key-press .note4,
+.triangle:active .note5,
+.key-press .note5,
+.triangle:active .note6,
+.key-press .note6,
+.triangle:active .note7,
+.key-press .note7,
+.triangle:active .note8,
+.key-press .note8,
+.triangle:active .note9,
+.key-press .note9 {
+    color: rgba(255, 255, 255, 0.8);
 }
 
 .triangle:active::after,
@@ -158,9 +168,21 @@
     margin: 0.2vw 1vw 1.8vw 1vw;
 }
 
-.line1-1, .line1-2, .line1-3, .line1-4, .line1-5,
-.line2-1, .line2-2, .line2-3, .line2-4, .line2-5,
-.line3-1, .line3-2, .line3-3, .line3-4, .line3-5 {
+.line1-1,
+.line1-2,
+.line1-3,
+.line1-4,
+.line1-5,
+.line2-1,
+.line2-2,
+.line2-3,
+.line2-4,
+.line2-5,
+.line3-1,
+.line3-2,
+.line3-3,
+.line3-4,
+.line3-5 {
     left: 7vw;
     z-index: -1;
     width: 64.2vw;
@@ -171,53 +193,135 @@
     background-color: rgba(255, 255, 255, 0.1);
 }
 
-.line1-1 {bottom: calc(100% - 3.2vw);}
-.line1-2 {bottom: calc(100% - 4.0vw);}
-.line1-3 {bottom: calc(100% - 4.8vw);}
-.line1-4 {bottom: calc(100% - 5.6vw);}
-.line1-5 {bottom: calc(100% - 6.4vw);}
+.line1-1 {
+    bottom: calc(100% - 3.2vw);
+}
 
-.line2-1 {bottom: calc(66.6% - 3.2vw);}
-.line2-2 {bottom: calc(66.6% - 4.0vw);}
-.line2-3 {bottom: calc(66.6% - 4.8vw);}
-.line2-4 {bottom: calc(66.6% - 5.6vw);}
-.line2-5 {bottom: calc(66.6% - 6.4vw);}
+.line1-2 {
+    bottom: calc(100% - 4.0vw);
+}
 
-.line3-1 {bottom: calc(33.3% - 3.2vw);}
-.line3-2 {bottom: calc(33.3% - 4.0vw);}
-.line3-3 {bottom: calc(33.3% - 4.8vw);}
-.line3-4 {bottom: calc(33.3% - 5.6vw);}
-.line3-5 {bottom: calc(33.3% - 6.4vw);}
+.line1-3 {
+    bottom: calc(100% - 4.8vw);
+}
 
-.note1, .note2, .note3, .note4,
-.note5, .note6, .note7, .note8, .note9 {
+.line1-4 {
+    bottom: calc(100% - 5.6vw);
+}
+
+.line1-5 {
+    bottom: calc(100% - 6.4vw);
+}
+
+.line2-1 {
+    bottom: calc(66.6% - 3.2vw);
+}
+
+.line2-2 {
+    bottom: calc(66.6% - 4.0vw);
+}
+
+.line2-3 {
+    bottom: calc(66.6% - 4.8vw);
+}
+
+.line2-4 {
+    bottom: calc(66.6% - 5.6vw);
+}
+
+.line2-5 {
+    bottom: calc(66.6% - 6.4vw);
+}
+
+.line3-1 {
+    bottom: calc(33.3% - 3.2vw);
+}
+
+.line3-2 {
+    bottom: calc(33.3% - 4.0vw);
+}
+
+.line3-3 {
+    bottom: calc(33.3% - 4.8vw);
+}
+
+.line3-4 {
+    bottom: calc(33.3% - 5.6vw);
+}
+
+.line3-5 {
+    bottom: calc(33.3% - 6.4vw);
+}
+
+.note1,
+.note2,
+.note3,
+.note4,
+.note5,
+.note6,
+.note7,
+.note8,
+.note9 {
     position: absolute;
     pointer-events: none;
     display: inline-block;
     transform: scale(1, 1.2);
     text-shadow: 0 0 0.1vw, 0 0 0.1vw;
 }
-.note1, .note2, .note3,
-.note5, .note6, .note7, .note8 {
+
+.note1,
+.note2,
+.note3,
+.note5,
+.note6,
+.note7,
+.note8 {
     left: 3.1vw;
     font-size: 3.4vw;
     font-weight: 900;
 }
 
-.note4, .note9 {
+.note4,
+.note9 {
     left: 3.2vw;
     font-size: 6vw;
 }
 
-.note1 {top: 0.85vw;}
-.note2 {top: 1.65vw;}
-.note3 {top: 2.45vw;}
-.note4 {top: -2.05vw;}
-.note5 {top: 0.6vw;}
-.note6 {top: 1.4vw;}
-.note7 {top: 2.2vw;}
-.note8 {top: 2.75vw;}
-.note9 {top: -2.3vw;}
+.note1 {
+    top: 0.85vw;
+}
+
+.note2 {
+    top: 1.65vw;
+}
+
+.note3 {
+    top: 2.45vw;
+}
+
+.note4 {
+    top: -2.05vw;
+}
+
+.note5 {
+    top: 0.6vw;
+}
+
+.note6 {
+    top: 1.4vw;
+}
+
+.note7 {
+    top: 2.2vw;
+}
+
+.note8 {
+    top: 2.75vw;
+}
+
+.note9 {
+    top: -2.3vw;
+}
 
 #loadDiv {
     width: 100vw;
