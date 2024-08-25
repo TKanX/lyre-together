@@ -234,6 +234,36 @@
     z-index: 999;
 }
 
+.landscape {
+    display: none;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--dialog-background-color);
+    color: var(--background-text1);
+    font-family: 'genshin impact', Fallback, sans-serif;
+    font-size: 3vw;
+    text-align: center;
+    line-height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 999;
+}
+
+/* Hide the content in portrait mode */
+@media screen and (orientation: portrait) {
+    .landscape {
+        display: block;
+    }
+}
+
+/* Show the content in landscape mode */
+@media screen and (orientation: landscape) {
+    .landscape {
+        display: none;
+    }
+}
+
 #volume {
     position: fixed;
     bottom: 0;
