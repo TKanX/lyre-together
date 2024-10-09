@@ -56,11 +56,11 @@ The server uses environment variables to configure the WebSocket connection. You
 - [Express](https://expressjs.com/) - Web framework for Node.js
 - [Socket.IO](https://socket.io/) - Real-time engine for WebSockets
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ## Acknowledgments
 
 - [Genshin Impact](https://genshin.mihoyo.com/) - Inspiration for the lyre simulator
 - [WindsongLyre-Sim](https://github.com/haveyouwantto/WindsongLyre-Sim/) - Reference for the lyre simulator
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
